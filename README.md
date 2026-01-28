@@ -1,6 +1,6 @@
 # Test task Kultura Analitiki
 
-**Test task Kultura Analitiki** - тестовое задание по реализации асинхронного сервера и клиента на Python с использованием aiohttp.  
+**Test task Kultura Analitiki** - тестовое задание по реализации асинхронного сервера и клиента с использованием aiohttp.  
 Включает генерацию OpenAPI контракта и написание тестов.
 
 ## Оглавление
