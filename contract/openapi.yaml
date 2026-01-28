@@ -1,0 +1,209 @@
+paths:
+  /notes:
+    head:
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Note'
+          description: Заметки получены
+        '500':
+          description: Ошибка сервера
+      tags:
+      - notes
+      summary: Получение всех заметок.
+      produces:
+      - application/json
+    get:
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Note'
+          description: Заметки получены
+        '500':
+          description: Ошибка сервера
+      tags:
+      - notes
+      summary: Получение всех заметок.
+      produces:
+      - application/json
+    post:
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoteText'
+        required: false
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+          description: Заметка создана
+        '422':
+          description: Ошибка валидации
+        '500':
+          description: Ошибка сервера
+      tags:
+      - notes
+      summary: Создание новой заметки
+      produces:
+      - application/json
+  /notes/{id}:
+    head:
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+          description: Заметка получена
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+          description: Заметка не найдена
+        '422':
+          description: Ошибка валидации
+        '500':
+          description: Ошибка сервера
+      tags:
+      - notes
+      summary: Получение заметки по id.
+      produces:
+      - application/json
+    get:
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+          description: Заметка получена
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+          description: Заметка не найдена
+        '422':
+          description: Ошибка валидации
+        '500':
+          description: Ошибка сервера
+      tags:
+      - notes
+      summary: Получение заметки по id.
+      produces:
+      - application/json
+    put:
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoteText'
+        required: false
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+          description: Заметка изменена
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+          description: Заметка не найдена
+        '422':
+          description: Ошибка валидации
+        '500':
+          description: Ошибка сервера
+      tags:
+      - notes
+      summary: Изменение заметки.
+      produces:
+      - application/json
+    delete:
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      responses:
+        '204':
+          description: Заметка удалена
+        '422':
+          description: Ошибка валидации
+        '500':
+          description: Ошибка сервера
+      tags:
+      - notes
+      summary: Удаление заметки.
+      produces:
+      - application/json
+info:
+  title: Notes
+  version: '0.1'
+openapi: 3.0.3
+components:
+  schemas:
+    Note:
+      type: object
+      properties:
+        id:
+          type: integer
+        text:
+          type: string
+          minLength: 1
+          maxLength: 256
+      required:
+      - text
+      additionalProperties: false
+    ErrorMessage:
+      type: object
+      properties:
+        message:
+          type: string
+      additionalProperties: false
+    NoteText:
+      type: object
+      properties:
+        text:
+          type: string
+          minLength: 1
+          maxLength: 256
+      required:
+      - text
+      additionalProperties: false
